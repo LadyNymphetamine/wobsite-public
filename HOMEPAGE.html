@@ -1,0 +1,275 @@
+<!DOCTYPE HTML> 
+<html>
+   <title>ARCANOSIS</title>
+	
+   <body style="
+			 background-image: url('gravitron.jpg');
+			 background-size: cover;
+			 background-attachment: fixed;
+			 min-height: 100vh;
+			 margin: 0;
+			 ">
+      <h1 style="color: #CEAAFF; text-align: center;">
+                                                      A
+		                                         <sub>R</sub>
+		                                              C
+		                                         <sub>A</sub>
+		                                              N
+		                                         <sub>O</sub>
+		                                              S
+		                                         <sub>I</sub>
+		                                              S
+		</h1>
+	
+  <div style="
+                  float:   left;
+                  width:  250px;
+                  margin:  20px;
+                  padding: 15px;
+                  border: 2px solid white;
+                  background-color: rgba(0, 0, 0.6);
+                  color: #CEAAFF;
+                  font-family: monospace;
+                  ">
+      <h3 style="
+	             margin-top: 0;
+	             border-bottom: 1px solid white;
+                 ">
+	  
+	  <mark style=" 
+				   color: #000000;
+				  ">
+		    UPDATES
+	  </mark>
+		  
+      </h3>
+      <div style="
+                 max-height: 400px;
+                 overflow-y: auto;
+                 padding-right: 8px;
+                 ">
+    <p> 
+	  <time>
+		  <b style="
+				   color: #FFFFFF;
+				  ">
+			 4.14.2026
+		  </b>
+	  </time> 
+    audio and background are situated. 
+    As of right now im working on situating this update box.
+    16:21 -
+	 i fixed some broken syntax in the body section divs,
+   and cleaned up some of the scripting to make it easier to
+    find things. <br />
+     </p>
+	  <time>
+         <b style="
+				   color: #FFFFFF;
+				  ">
+			 4.15.2026
+		  </b>
+	  </time>
+    <p>Im still not happy with the updates box. it does not expand
+	  or change its shape to fit and contain the text within.
+	  i will be working to fix that for the time being. 
+	  <q>Make it first, perfect it later</q> , right?
+	  thats the goal anyway. this little website is going 
+	  to be my passion project for the foreseeable future.
+    </p>
+    <time>
+         <b style="
+				   color: #FFFFFF;
+				  ">
+			 6.5.2026
+		  </b>
+	  </time>
+    <p> This page has now been created as a neocities website!<br>
+	  what i would like to do from here is continue building<br>
+	  and customizing this site, while hosting my portfolio!</p>
+	
+   <time>
+         <b style="
+				   color: #FFFFFF;
+				 ">
+			  6.8.2026 
+		  </b>
+	  </time>
+    <p>Updated background image to one that works.<br>
+	  working on a few navigational and quality of life<br>
+	  updates. Id like to update the audio player for <br>
+	  better functionality.</p>
+	
+    <time>
+         <b style="
+				   color: #FFFFFF;
+				  ">
+			 9.28.2026 
+		</b>
+	 </time>
+    <p>Added scroll bar to the update box and fixed<br>
+    the expanding box issue. i also need to fix the<br>
+    audio player to continue playing when clicking<br>
+    and entering the portfolio section of the website.
+    </p>
+</div>
+</div>
+<div style="text-align: right; margin-top: 20px;">
+    <a href="Photos/portfolio/GALLERY.html" class="button">[PORTFOLIO TEST]</a>
+</div>
+<div class="audio-capsule">
+    <audio id="stream-player" src="https://streaming.live365.com/a49483"></audio>
+    
+    <button class="control-btn" id="play-toggle">&#x25B6;</button>
+    <span class="time-stamp">0:00</span>
+    <div class="progress-line"></div>
+    
+    <div class="volume-zone">
+        <button class="control-btn">&#x1F50A;</button>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.8">
+    </div>
+    </div>
+
+<style>
+
+.button {
+  display: inline-block;
+  padding: 10px 10px;
+  background: #1F1F1F;
+  color: #CEAAFF;
+  text-decoration: none;
+}
+
+.audio-capsule {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(30, 30, 30, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #ffffff;
+    font-family: sans-serif;
+    font-size: 14px;
+    z-index: 9999;
+}
+
+.control-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.progress-line {
+    width: 120px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.5); 
+    border-radius: 2px;
+}
+
+.time-stamp {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.9;
+}
+
+.volume-zone {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    transition: gap 0.2s ease;
+}
+
+/* Custom Volume Slider Track (The line it rides on) */
+#volume-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 0;
+    opacity: 0;
+    height: 4px; 
+    background: #FFFFFF !important; /* Forces the track line to be bright solid white */
+    border-radius: 2px;
+    outline: none;
+    transition: width 0.25s ease-in-out, opacity 0.2s ease;
+}
+
+/* Custom Slider Knob (The circle you grab) */
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    width: 14px; /* Slightly larger circle so it's easier to grab */
+    height: 14px;
+    border-radius: 50%;
+    background-color: #CEAAFF !important; /* Sharp accent purple */
+    box-shadow: 0 0 6px rgba(206, 170, 255, 0.8); /* Gives the purple knob a nice clean glow */
+    cursor: pointer;
+    margin-top: -5px; /* Aligns it perfectly over the center of the track line */
+}
+
+/* Firefox Track Support */
+#volume-slider::-moz-range-track {
+    background: #FFFFFF !important;
+    height: 4px;
+    border-radius: 2px;
+}
+
+/* Firefox Knob Support */
+#volume-slider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #CEAAFF !important;
+    border: none;
+    box-shadow: 0 0 6px rgba(206, 170, 255, 0.8);
+    cursor: pointer;
+}
+
+.volume-zone:hover {
+    gap: 8px;
+}
+
+.volume-zone:hover #volume-slider {
+    width: 80px;
+    opacity: 1;
+}
+</style>
+
+<script>
+const audio = document.getElementById('stream-player');
+const volumeSlider = document.getElementById('volume-slider');
+const playToggle = document.getElementById('play-toggle');
+const timeStamp = document.querySelector('.time-stamp');
+
+// Sync hardware volume to slider
+volumeSlider.addEventListener('input', (e) => {
+    audio.volume = e.target.value;
+});
+
+// Handle click to play/pause and satisfy browser security
+playToggle.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        playToggle.innerHTML = '&#x23F8;'; // Switches to Pause symbol (⏸)
+    } else {
+        audio.pause();
+        playToggle.innerHTML = '&#x25B6;'; // Switches to Play symbol (▶)
+    }
+});
+
+// Simple ticker to update the time stamp while the stream plays
+audio.addEventListener('timeupdate', () => {
+    const minutes = Math.floor(audio.currentTime / 60);
+    const seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+    timeStamp.textContent = `${minutes}:${seconds}`;
+});
+</script>
+</body> 
+</html>
