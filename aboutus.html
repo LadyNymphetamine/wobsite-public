@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ABOUT US</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background-image: url('../gravitron.jpg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #CEAAFF;
+            font-family: monospace;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .audio-capsule {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            max-width: calc(100vw - 24px);
+            background: rgba(30, 30, 30, 0.75);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #ffffff;
+            font-family: sans-serif;
+            font-size: 14px;
+            z-index: 9999;
+        }
+
+        .control-btn {
+            min-width: 40px;
+            min-height: 40px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:focus-visible,
+        #volume-slider:focus-visible,
+        .stream-select:focus-visible {
+            outline: 2px solid #CEAAFF;
+            outline-offset: 3px;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .stream-select {
+            max-width: 112px;
+            padding: 6px 8px;
+            border: 1px solid rgba(206, 170, 255, 0.7);
+            border-radius: 16px;
+            background: rgba(0, 0, 0, 0.35);
+            color: #ffffff;
+            font: inherit;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .stream-select option {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .time-stamp {
+            font-variant-numeric: tabular-nums;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        .live-label {
+            color: #CEAAFF;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+        }
+
+        .volume-zone {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.2s ease;
+        }
+
+        #volume-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 80px;
+            height: 4px;
+            background: #FFFFFF;
+            border-radius: 2px;
+        }
+
+        #volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #CEAAFF;
+            box-shadow: 0 0 6px rgba(206, 170, 255, 0.8);
+            cursor: pointer;
+            margin-top: -5px;
+        }
+
+        #volume-slider::-moz-range-track {
+            background: #FFFFFF;
+            height: 4px;
+            border-radius: 2px;
+        }
+
+        #volume-slider::-moz-range-thumb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #CEAAFF;
+            border: none;
+            box-shadow: 0 0 6px rgba(206, 170, 255, 0.8);
+            cursor: pointer;
+        }
+
+        .player-status {
+            max-width: 120px;
+            color: #ffd1d1;
+            font-size: 12px;
+        }
+
+        @media (max-width: 480px) {
+            .audio-capsule {
+                gap: 6px;
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+
+            .control-btn {
+                min-width: 36px;
+                min-height: 36px;
+            }
+
+            #volume-slider {
+                width: 64px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>UNDER // RENOVATION</h1>
+
+    <div class="audio-capsule">
+        <audio id="stream-player" src="https://streaming.live365.com/a49483" preload="none"></audio>
+
+        <label class="stream-picker">
+            <span class="visually-hidden">Choose radio station</span>
+            <select class="stream-select" id="stream-select" aria-label="Choose radio station">
+                <option value="https://streaming.live365.com/a49483">OTAT24/7</option>
+                <option value="https://radio.plaza.one/mp3">NightWave Plaza</option>
+            </select>
+        </label>
+        <button class="control-btn" id="play-toggle" type="button" aria-label="Play radio">
+            <span aria-hidden="true">&#x25B6;</span>
+        </button>
+        <span class="time-stamp" aria-label="Stream elapsed time">0:00</span>
+        <span class="live-label">LIVE RADIO</span>
+
+        <div class="volume-zone">
+            <label for="volume-slider" aria-hidden="true">&#x1F50A;</label>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.8" aria-label="Radio volume">
+        </div>
+        <span class="player-status" id="player-status" role="status" aria-live="polite"></span>
+    </div>
+
+    <script>
+        const audio = document.getElementById('stream-player');
+        const volumeSlider = document.getElementById('volume-slider');
+        const playToggle = document.getElementById('play-toggle');
+        const timeStamp = document.querySelector('.time-stamp');
+        const playerStatus = document.getElementById('player-status');
+        const playIcon = playToggle.querySelector('span');
+        const streamSelect = document.getElementById('stream-select');
+
+        audio.volume = Number(volumeSlider.value);
+
+        volumeSlider.addEventListener('input', () => {
+            audio.volume = Number(volumeSlider.value);
+        });
+
+        streamSelect.addEventListener('change', () => {
+            const shouldResume = !audio.paused;
+            audio.pause();
+            audio.src = streamSelect.value;
+            audio.load();
+            timeStamp.textContent = '0:00';
+            playerStatus.textContent = '';
+
+            if (shouldResume) {
+                audio.play().catch(() => {
+                    playerStatus.textContent = 'Unable to start radio.';
+                });
+            }
+        });
+
+        playToggle.addEventListener('click', () => {
+            if (audio.paused) {
+                playerStatus.textContent = '';
+                audio.play().catch(() => {
+                    playerStatus.textContent = 'Unable to start radio.';
+                });
+            } else {
+                audio.pause();
+            }
+        });
+
+        audio.addEventListener('play', () => {
+            playIcon.textContent = '\u23F8';
+            playToggle.setAttribute('aria-label', 'Pause radio');
+        });
+
+        audio.addEventListener('pause', () => {
+            playIcon.textContent = '\u25B6';
+            playToggle.setAttribute('aria-label', 'Play radio');
+        });
+
+        audio.addEventListener('error', () => {
+            playerStatus.textContent = 'Radio stream is unavailable.';
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const minutes = Math.floor(audio.currentTime / 60);
+            const seconds = Math.floor(audio.currentTime % 60).toString().padStart(2, '0');
+            timeStamp.textContent = `${minutes}:${seconds}`;
+        });
+    </script>
+</body>
+</html>
